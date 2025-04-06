@@ -33,14 +33,5 @@ vim.g.markdown_fenced_languages = { 'cpp' }
 vim.opt.backup = false
 vim.opt.writebackup = false
 
-vim.filetype.add({
-    pattern = {
-        ["*.vert"] = "glsl",
-        ["*.frag"] = "glsl",
-        ["*.glsl"] = "glsl",
-        ["*.comp"] = "glsl",
-    },
-})
-
 require("config.lazy")
 require("remap")

@@ -1,4 +1,4 @@
-return {
+local opts = {
     -- A list of parser names, or "all" (the listed parsers MUST always be installed)
     ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "javascript", "typescript", "rust" },
 
@@ -11,9 +11,7 @@ return {
 
     highlight = {
         enable = true,
-
-        disable = { "lates" },
-
+        disable = { "latex" },
         -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
         -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
         -- Using this option may slow down your editor, and you may see some duplicate highlights.
@@ -21,3 +19,5 @@ return {
         additional_vim_regex_highlighting = false,
     },
 }
+
+require("nvim-treesitter.configs").setup(opts)

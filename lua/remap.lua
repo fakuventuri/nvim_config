@@ -5,8 +5,7 @@ local quickfix = require("utils.quickfix")
 vim.keymap.set("n", "<leader>e", vim.cmd.Ex, { desc = "Open netrw" })
 
 vim.keymap.set("n", "<leader>rp", ":%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>", { desc = "replace ocurrencies" })
-vim.keymap.set("n", "<leader>s", ":%s/<C-r><C-w>", { desc = "search ocurrencies" })
--- TODO same but in visual mode
+vim.keymap.set("v", "<leader>s", "y/<C-r>\"", { desc = "search marked text ocurrencies" })
 
 vim.keymap.set("v", "K", ":m '>+1<CR>gv=gv", { desc = "move marked text up" })
 vim.keymap.set("v", "J", ":m '<-2<CR>gv=gv", { desc = "move marked text down" })
@@ -26,10 +25,35 @@ vim.keymap.set("v", "<leader>r", "\"_d\"+p", { desc = "replace marked with syste
 vim.keymap.set("n", "U", "<C-r>", { desc = "redo" })
 vim.keymap.set("n", "<C-z>", "<nop>", { desc = "nothing" })
 
+vim.keymap.set("i", "<C-j>", "<down>", { desc = "down in insert mode" })
+vim.keymap.set("i", "<C-k>", "<up>", { desc = "up in insert mode" })
+vim.keymap.set("i", "<C-h>", "<left>", { desc = "left in insert mode" })
+vim.keymap.set("i", "<C-l>", "<right>", { desc = "right in insert mode" })
+
 vim.keymap.set("n", "Q", function() quickfix.toggle() end, { desc = "toggle quickfix list" })
 vim.keymap.set("n", "<leader>lo", function()
     vim.cmd('e' .. vim.lsp.get_log_path())
 end, { desc = "show error log" })
+
+-- TROUBLE
+vim.keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics (Trouble)" })
+vim.keymap.set("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+    { desc = "Buffer Diagnostics (Trouble)" })
+vim.keymap.set("n", "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "Symbols (Trouble)" })
+vim.keymap.set("n", "<leader>cl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+    { desc = "LSP Definitions / references / ... (Trouble)" })
+vim.keymap.set("n", "<leader>xL", "<cmd>Trouble loclist toggle<cr>", { desc = "Location List (Trouble)" })
+vim.keymap.set("n", "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List (Trouble)" })
+
+-- TELESCOPE
+local builtin = require("telescope.builtin")
+
+vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "telescope find files" })
+vim.keymap.set("n", "<leader>fs", function()
+    builtin.grep_string({ search = vim.fn.input("Grep > ") })
+end, { desc = "telescope project grep" })
+
+-- vim.keymap.set("n", "<leader>fg", builtin.find_git, { desc = "Telescope live grep" })
 
 -- ["<C-p>"] = { function() vim.diagnostic.goto_prev() end, "prev diagnostic" },
 -- ["<C-n>"] = { function() vim.diagnostic.goto_next() end, "next diagnostic" },
@@ -40,39 +64,6 @@ end, { desc = "show error log" })
 --     end,
 --     "Toggle comment",
 -- },
---
--- FUGITIVE
-vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "" })
-
--- NVIMTREE
--- ["<C-o>"] = { "<cmd> NvimTreeToggle <CR>", "Toggle nvimtree" },
-
--- UNDOTREE
-vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "toggle undo tree" })
-
--- TELESCOPE
-local builtin = require("telescope.builtin")
-vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'telescope find files' })
--- vim.keymap.set('n', '<leader>fg', builtin.find_git, { desc = 'Telescope live grep' })
-vim.keymap.set('n', '<leader>fs', function()
-    builtin.grep_string({ search = vim.fn.input("Grup > ") })
-end, { desc = 'telescope project grep' })
-
--- TMUX NAVIGATION
-vim.keymap.set("n", "<C-h>", vim.cmd.TmuxNavigateLeft, { desc = "window left" })
-vim.keymap.set("n", "<C-l>", vim.cmd.TmuxNavigateRight, { desc = "window right" })
-vim.keymap.set("n", "<C-j>", vim.cmd.TmuxNavigateDown, { desc = "window down" })
-vim.keymap.set("n", "<C-k>", vim.cmd.TmuxNavigateUp, { desc = "window up" })
-
--- LUASNIP
-vim.keymap.set("n", "<leader>L", function()
-    require("luasnip.loaders.from_lua")
-        .load({ paths = "~/.config/nvim/lua/snippets/" })
-end, { desc = "reload snippets" })
-
--- VIMTEX
-vim.keymap.set("n", "<leader>lv", vim.cmd.VimtexView, { desc = "vimtex view" })
-vim.keymap.set("n", "<leader>lc", vim.cmd.VimtexCompile, { desc = "vimtex compile" })
 
 -- M.debugging = {
 --     n = {
@@ -86,14 +77,4 @@ vim.keymap.set("n", "<leader>lc", vim.cmd.VimtexCompile, { desc = "vimtex compil
 --             "open debugging sidebar"
 --         }
 --     },
--- }
--- M.spectre = {
---     n = {
---         ['<leader>S'] = { function() require("spectre").toggle() end, "toggle Spectre" },
---         ['<leader>sw'] = { function() require("spectre").open_visual({ select_word = true }) end, "toggle spectre" },
---         ['<leader>sp'] = { function() require("spectre").open_file_search({ select_word = true }) end, "toggle spectre" },
---     },
---     v = {
---         ['<leader>sw'] = { function() require("spectre").open_visual() end, "toggle Spectre" },
---     }
 -- }
