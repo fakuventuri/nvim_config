@@ -8,8 +8,18 @@ local get_opts = function(config_file)
 end
 
 local plugins = {
-    { 'hrsh7th/cmp-nvim-lsp' },
-    { 'hrsh7th/nvim-cmp' },
+    {
+        'hrsh7th/nvim-cmp',
+        dependencies = {
+            "saadparwaiz1/cmp_luasnip",
+            { "windwp/nvim-autopairs", config = get_config("autopairs"), },
+            "hrsh7th/cmp-nvim-lua",
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-path",
+        },
+        config = get_config("cmp"),
+    },
     { "jose-elias-alvarez/null-ls.nvim", config = get_config("null_ls"), },
     {
         'neovim/nvim-lspconfig',
@@ -68,29 +78,26 @@ local plugins = {
         config = function(_, _) vim.cmd [[colorscheme tokyodark]] end,
     },
     {
-        "windwp/nvim-autopairs",
-        opts = {
-            fast_wrap = {},
-            disable_filetype = { "TelescopePrompt", "vim" },
-        },
-        config = function(_, opts)
-            require("nvim-autopairs").setup(opts)
-            -- setup cmp for autopairs
-            local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-            require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-        end,
+        "saecki/crates.nvim",
+        ft = { "rust", "toml" },
+        dependencies = 'hrsh7th/nvim-cmp',
+        config = true,
+        -- TODO insert crate sources in nvim-cmp
+    },
+    {
+        "simrat39/rust-tools.nvim",
+        ft = "rust",
+        dependencies = "neovim/nvim-lspconfig",
+        config = true,
     },
     {
         "rust-lang/rust.vim",
         ft = "rust",
         init = function() vim.g.rustfmt_autosave = 1 end,
     },
-    { "mfussenegger/nvim-dap" },
     {
-        "saecki/crates.nvim",
-        ft = { "rust", "toml" },
-        dependencies = 'hrsh7th/nvim-cmp',
-        -- TODO insert crate sources in nvim-cmp
+        "mfussenegger/nvim-dap",
+        config = get_config("nvim_dap")
     },
 }
 

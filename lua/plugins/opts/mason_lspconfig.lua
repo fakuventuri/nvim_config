@@ -3,7 +3,7 @@ local server_opts = {
         settings = {
             Lua = {
                 diagnostics = {
-                    globals = { "vim" },
+                    globals = { "vim", "s", "t", "i", "d", "ls", "sn", "f", "fmt", "fmta", "rep" },
                 },
                 workspace = {
                     library = {
@@ -26,15 +26,6 @@ local server_opts = {
     },
     bashls        = {
         filetypes = { "bash", "zsh", "sh" },
-    },
-    rust_analyzer = {
-        filetypes = { "rust" },
-        -- root_dir = util.root_pattern("Cargo.toml"),
-        settings = {
-            ['rust-analyser'] = {
-                allFeatures = true,
-            }
-        }
     },
     gopls         = {
         cmd = { "gopls" },
