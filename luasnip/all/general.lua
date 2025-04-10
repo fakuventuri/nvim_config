@@ -1,5 +1,5 @@
 local snippets = {
-    s({ trig = ";;", snippetType = "autosnippet", desc = "\\" },
+    s({ trig = ";;", snippetType = "autosnippet", desc = "\\", wordTrig = false },
         t("\\")
     ),
 }

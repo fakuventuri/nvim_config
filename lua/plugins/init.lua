@@ -66,7 +66,7 @@ local plugins = {
     {
         "williamboman/mason-lspconfig.nvim",
         dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
-        opts = get_opts("mason_lspconfig"),
+        config = get_config("mason_lspconfig"),
     },
     {
         "nvim-telescope/telescope.nvim",

@@ -17,7 +17,7 @@ local letters = {
 
 for key, letter in pairs(letters) do
     table.insert(snippets, s(
-        { trig = ";" .. key, snippetType = "autosnippet" },
+        { trig = ";" .. key, snippetType = "autosnippet", wordTrig = false },
         { t(letter), }
     ))
 end

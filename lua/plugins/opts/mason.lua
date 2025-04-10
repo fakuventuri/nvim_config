@@ -10,7 +10,6 @@ local opts = {
         "pyright",
         "clang-format",
         "lua_ls",
-        "tectonic",
         "texlab",
         "zls",
     },

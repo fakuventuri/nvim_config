@@ -1,3 +1,6 @@
+local lspconfig = require("lspconfig")
+local base_config = require("plugins.configs.lspconfig")
+
 local server_opts = {
     lua_ls        = {
         settings = {
@@ -45,9 +48,16 @@ local server_opts = {
 local opts = {
     handlers = {
         function(server_name)
-            require("lspconfig")[server_name].setup(server_opts[server_name] or {})
+            local options = server_opts[server_name] or {}
+            if(options.capabilities == nil) then
+                options.capabilities = base_config.capabilities
+            end
+            if(options.on_attach == nil) then
+                options.on_attach = base_config.on_attach
+            end
+            lspconfig[server_name].setup(options)
         end,
     },
 }
 
-return opts
+require("mason-lspconfig").setup(opts)
