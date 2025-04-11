@@ -20,11 +20,9 @@ local plugins = {
         },
         config = get_config("cmp"),
     },
-    { "jose-elias-alvarez/null-ls.nvim", config = get_config("null_ls"), },
     {
         'neovim/nvim-lspconfig',
         config = get_config("lspconfig"),
-        dependencies = { "jose-elias-alvarez/null-ls.nvim", },
     },
     { "nvim-treesitter/nvim-treesitter", config = get_config("treesitter") },
     {
