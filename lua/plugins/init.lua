@@ -7,7 +7,7 @@ local get_opts = function(config_file)
     return require("plugins.opts." .. config_file)
 end
 
-local plugins = {
+return {
     {
         'hrsh7th/nvim-cmp',
         dependencies = {
@@ -98,5 +98,3 @@ local plugins = {
         config = get_config("nvim_dap")
     },
 }
-
-return plugins

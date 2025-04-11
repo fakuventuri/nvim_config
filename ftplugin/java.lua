@@ -3,7 +3,7 @@ local jdtls = require("jdtls")
 
 local function directory_exists(path)
     local f = io.popen("cd " .. path)
-    return f ~= nil and not f:read("*all"):find("ItemNotFoundException")
+    return f and not f:read("*all"):find("ItemNotFoundException")
 end
 
 local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
@@ -92,11 +92,7 @@ local config = {
         },
     },
     init_options = {
-        bundles = {
-            vim.fn.glob(
-                mason_path .. "packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar"
-            ),
-        },
+        bundles = bundles,
     },
     on_attach = function(client, bufnr)
         lsp_config.on_attach(client, bufnr)

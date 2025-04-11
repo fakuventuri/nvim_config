@@ -49,12 +49,7 @@ local opts = {
     handlers = {
         function(server_name)
             local options = server_opts[server_name] or {}
-            if(options.capabilities == nil) then
-                options.capabilities = base_config.capabilities
-            end
-            if(options.on_attach == nil) then
-                options.on_attach = base_config.on_attach
-            end
+            vim.tbl_extend("keep", options, base_config)
             lspconfig[server_name].setup(options)
         end,
     },
