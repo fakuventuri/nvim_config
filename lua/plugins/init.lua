@@ -56,7 +56,7 @@ local plugins = {
     },
     {
         "williamboman/mason.nvim",
-        opts = get_opts("mason"),
+        config = get_config("mason"),
         cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
         -- TODO
         -- config = require("plugins.configs.mason"),
