@@ -1,6 +1,7 @@
 local opts = {
     ensure_installed = {
         "black",
+        "bashls",
         "clangd",
         "clang-format",
         "glsl_analyzer",
