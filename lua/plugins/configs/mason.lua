@@ -3,6 +3,7 @@ local opts = {
         "black",
         "clangd",
         "clang-format",
+        "glsl_analyzer",
         "html-lsp",
         "java-debug-adapter",
         "java-test",

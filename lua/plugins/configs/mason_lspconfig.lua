@@ -52,6 +52,8 @@ local opts = {
             vim.tbl_extend("keep", options, base_config)
             lspconfig[server_name].setup(options)
         end,
+        -- discard setup, since it's done by nvim-jdtls
+        jdtls = function() end
     },
 }
 

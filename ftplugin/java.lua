@@ -12,14 +12,13 @@ local root_dir = require("jdtls.setup").find_root(root_markers)
 -- calculate workspace dir
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 local workspace_dir = vim.fn.stdpath("data") .. "/site/java/workspace/" .. project_name
-if directory_exists(workspace_dir) then
-else
+if not directory_exists(workspace_dir) then
     os.execute("mkdir " .. workspace_dir)
 end
 -- get the mason install path
 local install_path = require("mason-registry").get_package("jdtls"):get_install_path()
 -- get the current OS
-local os_name = string.lower(vim.loop.os_uname().sysname)
+local os_name = vim.loop.os_uname().sysname:lower()
 
 local bundles = {}
 local mason_path = vim.fn.glob(vim.fn.stdpath("data") .. "/mason/")
@@ -34,7 +33,7 @@ vim.list_extend(
 
 local config = {
     cmd = {
-        "java",
+        "java", -- must be version 21 or higher
         "-Declipse.application=org.eclipse.jdt.ls.core.id1",
         "-Dosgi.bundles.defaultStartLevel=4",
         "-Declipse.product=org.eclipse.jdt.ls.core.product",
@@ -51,8 +50,7 @@ local config = {
         vim.fn.glob(install_path .. "/plugins/org.eclipse.equinox.launcher_*.jar"),
         "-configuration",
         install_path .. "/config_" .. os_name,
-        "-data",
-        workspace_dir, },
+        "-data", workspace_dir, },
     capabilities = lsp_config.capabilities,
     root_dir = root_dir,
     settings = {
