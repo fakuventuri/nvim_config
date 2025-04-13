@@ -28,6 +28,16 @@ local plugins = {
         cmd = "Trouble",
         config = true,
     },
+    {
+        'akinsho/bufferline.nvim',
+        version = "*",
+        dependencies = 'nvim-tree/nvim-web-devicons',
+    },
+    {
+        'nvim-lualine/lualine.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        config = true,
+    },
     { 'lervag/vimtex', },
     {
         "L3MON4D3/LuaSnip",
