@@ -34,7 +34,9 @@ local function load_mappings(opts)
     vim.keymap.set({ 'n', 'x' }, '<leader>fm', function() vim.lsp.buf.format({ async = true }) end, opts)
     vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, opts)
 end
-local function check_triggeredChars(triggerChars) local cur_line = api.nvim_get_current_line()
+
+local function check_triggeredChars(triggerChars)
+    local cur_line = api.nvim_get_current_line()
     local pos = api.nvim_win_get_cursor(0)[2]
     local prev_char = cur_line:sub(pos - 1, pos - 1)
     local cur_char = cur_line:sub(pos, pos)

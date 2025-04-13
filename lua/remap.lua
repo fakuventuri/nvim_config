@@ -2,14 +2,15 @@
 
 local quickfix = require("utils.quickfix")
 -- BASE
-vim.keymap.set("n", "<leader>e", vim.cmd.Ex, { desc = "Open netrw" })
+vim.keymap.set("n", "<leader>e", vim.cmd.Ex, { desc = "open netrw" })
+
+vim.keymap.set("n", "<tab>", "gt", { desc = "go to next tab" })
+vim.keymap.set("n", "<s-tab>", "gT", { desc = "go to previos tab" })
 
 vim.keymap.set("n", "<leader>rp", ":%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>", { desc = "replace ocurrencies" })
-vim.keymap.set("v", "<leader>s", "y/<C-r>\"", { desc = "search marked text ocurrencies" })
-
+vim.keymap.set("v", "<leader>sr", "y/<C-r>\"", { desc = "search marked text ocurrencies" })
 vim.keymap.set("v", "K", ":m '>+1<CR>gv=gv", { desc = "move marked text up" })
 vim.keymap.set("v", "J", ":m '<-2<CR>gv=gv", { desc = "move marked text down" })
-
 vim.keymap.set("n", "J", "mzJ`z", { desc = "J maintains cursor position" })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "centeres <C-d>" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "centeres <C-u>" })
@@ -35,32 +36,29 @@ vim.keymap.set("n", "<leader>lo", function()
     vim.cmd('e' .. vim.lsp.get_log_path())
 end, { desc = "show error log" })
 
+vim.keymap.set("n", "<leader>st", "<cmd>tab split<cr>", { desc = "tab split" })
+vim.keymap.set("n", "<leader>nt", "<cmd>tabnew<cr>", { desc = "new tab" })
+
 -- TROUBLE
-vim.keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics (Trouble)" })
-vim.keymap.set("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+vim.keymap.set("n", "<leader>td", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics (Trouble)" })
+vim.keymap.set("n", "<leader>tb", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
     { desc = "Buffer Diagnostics (Trouble)" })
-vim.keymap.set("n", "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "Symbols (Trouble)" })
-vim.keymap.set("n", "<leader>cl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-    { desc = "LSP Definitions / references / ... (Trouble)" })
-vim.keymap.set("n", "<leader>xL", "<cmd>Trouble loclist toggle<cr>", { desc = "Location List (Trouble)" })
-vim.keymap.set("n", "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List (Trouble)" })
+vim.keymap.set("n", "<leader>ts", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "Symbols (Trouble)" })
 
 -- TELESCOPE
 local builtin = require("telescope.builtin")
 
-vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "telescope find files" })
-vim.keymap.set("n", "<leader>fs", function()
+vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "find files" })
+vim.keymap.set("n", "<leader>fp", function()
     builtin.grep_string({ search = vim.fn.input("Grep > ") })
-end, { desc = "telescope project grep" })
+end, { desc = "project grep" })
+vim.keymap.set("n", "<leader>fg", builtin.git_files, { desc = "find git files" })
+vim.keymap.set("n", "<leader>fr", builtin.lsp_references, { desc = "find git files" })
+vim.keymap.set("n", "<leader>fs", builtin.lsp_workspace_symbols, { desc = "find workspace symbols" })
+vim.keymap.set("n", "<leader>fbs", builtin.lsp_document_symbols, { desc = "find document symbols" })
+vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "telescope diagnostics" })
+vim.keymap.set("n", "<leader>fbd", function() builtin.diagnostics({ bufnr = 0 }) end,
+    { desc = "telescope buffer diagnostics" })
 
--- vim.keymap.set("n", "<leader>fg", builtin.find_git, { desc = "Telescope live grep" })
-
--- ["<C-p>"] = { function() vim.diagnostic.goto_prev() end, "prev diagnostic" },
--- ["<C-n>"] = { function() vim.diagnostic.goto_next() end, "next diagnostic" },
---
--- ["<C-c>"] = {
---     function()
--- 	require("Comment.api").toggle.linewise.current()
---     end,
---     "Toggle comment",
--- },
+-- COMMENT
+vim.keymap.set("n", "<leader>c", require("Comment.api").toggle.linewise.current, { desc = "toggle comment" })

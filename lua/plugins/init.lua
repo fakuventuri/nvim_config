@@ -20,6 +20,10 @@ local plugins = {
     { 'nvim-pack/nvim-spectre', },
     { 'mfussenegger/nvim-jdtls', },
     {
+        'numToStr/Comment.nvim',
+        config = true,
+    },
+    {
         "folke/trouble.nvim",
         cmd = "Trouble",
         config = true,
