@@ -7,6 +7,13 @@ vim.keymap.set("n", "<leader>e", vim.cmd.Ex, { desc = "open netrw" })
 vim.keymap.set("n", "<tab>", "gt", { desc = "go to next tab" })
 vim.keymap.set("n", "<s-tab>", "gT", { desc = "go to previos tab" })
 
+vim.keymap.set({"n", "v"}, "L", "$", { desc = "go to line end" })
+vim.keymap.set("n", "dL", "d$", { desc = "go to line end" })
+vim.keymap.set({"n", "v"}, "H", "^", { desc = "delete till line start" })
+vim.keymap.set("n", "dH", "d^", { desc = "delete till line start" })
+
+vim.keymap.set("n", "D", vim.diagnostic.open_float, { desc = "delete till line start" })
+
 vim.keymap.set("n", "<leader>rp", ":%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>", { desc = "replace ocurrencies" })
 vim.keymap.set("v", "<leader>sr", "y/<C-r>\"", { desc = "search marked text ocurrencies" })
 vim.keymap.set("v", "K", ":m '>+1<CR>gv=gv", { desc = "move marked text up" })

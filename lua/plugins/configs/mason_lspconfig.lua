@@ -5,8 +5,7 @@ local server_opts = {
     lua_ls        = {
         settings = {
             Lua = {
-                diagnostics = {
-                    globals = { "vim", "s", "t", "i", "d", "ls", "sn", "f", "fmt", "fmta", "rep" },
+                diagnostics = { globals = { "vim", "s", "t", "i", "d", "ls", "sn", "f", "fmt", "fmta", "rep" },
                 },
                 workspace = {
                     library = {
@@ -52,8 +51,9 @@ local opts = {
             vim.tbl_extend("keep", options, base_config)
             lspconfig[server_name].setup(options)
         end,
-        -- discard setup, since it's done by nvim-jdtls
-        jdtls = function() end
+        -- discard setups done by plugins
+        jdtls = function() end,
+        rust_analyzer = function() end,
     },
 }
 

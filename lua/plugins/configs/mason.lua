@@ -4,6 +4,7 @@ local opts = {
         "bashls",
         "clangd",
         "clang-format",
+        "codelldb",
         "glsl_analyzer",
         "html-lsp",
         "java-debug-adapter",

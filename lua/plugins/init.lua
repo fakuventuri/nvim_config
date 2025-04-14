@@ -61,6 +61,10 @@ local plugins = {
         config = function(_, _) vim.cmd [[colorscheme tokyodark]] end,
     },
     {
+        'mrcjkb/rustaceanvim',
+        lazy = false, -- This plugin is already lazy
+    },
+    {
         "saecki/crates.nvim",
         ft = { "rust", "toml" },
         dependencies = { 'hrsh7th/nvim-cmp' },
@@ -68,17 +72,17 @@ local plugins = {
         -- TODO insert crate sources in nvim-cmp
     },
     {
-        "simrat39/rust-tools.nvim",
-        ft = "rust",
-        dependencies = { "neovim/nvim-lspconfig" },
-        config = true,
-    },
-    {
         "rust-lang/rust.vim",
         ft = "rust",
         init = function() vim.g.rustfmt_autosave = 1 end,
     },
     { "mfussenegger/nvim-dap", },
+    {
+        "julianolf/nvim-dap-lldb",
+        dependencies = { "mfussenegger/nvim-dap" },
+        config = true,
+    }
+
 }
 
 require("config.plugins").add_configs(plugins)
