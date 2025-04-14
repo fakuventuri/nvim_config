@@ -36,14 +36,14 @@ vim.keymap.set("n", "<leader>lo", function()
     vim.cmd('e' .. vim.lsp.get_log_path())
 end, { desc = "show error log" })
 
-vim.keymap.set("n", "<leader>st", "<cmd>tab split<cr>", { desc = "tab split" })
-vim.keymap.set("n", "<leader>nt", "<cmd>tabnew<cr>", { desc = "new tab" })
+vim.keymap.set("n", "<leader>ts", "<cmd>tab split<cr>", { desc = "tab split" })
+vim.keymap.set("n", "<leader>tn", "<cmd>tabnew<cr>", { desc = "new tab" })
 
 -- TROUBLE
-vim.keymap.set("n", "<leader>td", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics (Trouble)" })
-vim.keymap.set("n", "<leader>tb", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-    { desc = "Buffer Diagnostics (Trouble)" })
-vim.keymap.set("n", "<leader>ts", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "Symbols (Trouble)" })
+vim.keymap.set("n", "<leader>sd", "<cmd>Trouble diagnostics toggle<cr>", { desc = "show diagnostics" })
+vim.keymap.set("n", "<leader>sb", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+    { desc = "show buffer diagnostics" })
+vim.keymap.set("n", "<leader>ss", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "show symbols" })
 
 -- TELESCOPE
 local builtin = require("telescope.builtin")
@@ -59,6 +59,7 @@ vim.keymap.set("n", "<leader>fbs", builtin.lsp_document_symbols, { desc = "find 
 vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "telescope diagnostics" })
 vim.keymap.set("n", "<leader>fbd", function() builtin.diagnostics({ bufnr = 0 }) end,
     { desc = "telescope buffer diagnostics" })
+vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "key mappings" })
 
 -- COMMENT
 vim.keymap.set("n", "<leader>c", require("Comment.api").toggle.linewise.current, { desc = "toggle comment" })

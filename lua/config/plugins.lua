@@ -12,7 +12,7 @@ local function add_configs(plugins)
     for _, spec in ipairs(plugins) do
         if not spec.config then
             local plugin = spec[1] or spec.url or spec.dir
-            local config_name = plugin:gsub(".*/", ""):gsub("n?vim%-", ""):gsub("%-", "_"):gsub("%.n?vim", "")
+            local config_name = plugin:gsub(".*/", ""):gsub("n?vim%-", ""):gsub("%-", "_"):gsub("%.n?vim", ""):lower()
             spec.config = configs[config_name]
         end
     end
