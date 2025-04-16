@@ -34,11 +34,12 @@ local options = {
     },
     sources = {
         { name = "nvim_lsp" },
-        { name = "luasnip", option = { show_autosnippets = true } },
         { name = "buffer" },
         { name = "nvim_lua" },
         { name = "path" },
         { name = "crates" },
+        { name = "lazydev" },
+        { name = "luasnip", option = { show_autosnippets = true } },
     },
 }
 

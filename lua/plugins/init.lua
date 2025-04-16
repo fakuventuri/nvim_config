@@ -78,11 +78,19 @@ local plugins = {
     },
     { "mfussenegger/nvim-dap", },
     {
+        "rcarriga/nvim-dap-ui",
+        config = true,
+        dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" }
+    },
+    {
         "julianolf/nvim-dap-lldb",
         dependencies = { "mfussenegger/nvim-dap" },
         config = true,
-    }
-
+    },
+    {
+        "folke/lazydev.nvim",
+        ft = "lua",
+    },
 }
 
 require("config.plugins").add_configs(plugins)

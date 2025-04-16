@@ -1,4 +1,4 @@
-local config_files = io.popen("ls " .. require("utils.path").config .. "lua/plugins/configs")
+local config_files = io.popen("ls " .. require("utils.path").config .. "lua/plugins/configs") or {}
 local configs = {}
 
 for file in config_files:lines() do

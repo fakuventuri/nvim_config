@@ -2,24 +2,6 @@ local lspconfig = require("lspconfig")
 local base_config = require("plugins.configs.lspconfig")
 
 local server_opts = {
-    lua_ls        = {
-        settings = {
-            Lua = {
-                diagnostics = { globals = { "vim", "s", "t", "i", "d", "ls", "sn", "f", "fmt", "fmta", "rep" },
-                },
-                workspace = {
-                    library = {
-                        [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-                        [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
-                        -- [vim.fn.stdpath "data" .. "/lazy/ui/nvchad_types"] = true,
-                        -- [vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy"] = true,
-                    },
-                    maxPreload = 100000,
-                    preloadFileSize = 10000,
-                },
-            },
-        },
-    },
     glsl_analyzer = {
         filetypes = { "glsl" }
     },
