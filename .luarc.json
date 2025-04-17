@@ -1,0 +1,5 @@
+{
+    "diagnostics.globals": [
+        "s", "sn", "t", "i", "f", "d", "fmt", "fmta", "rep"
+    ]
+}
