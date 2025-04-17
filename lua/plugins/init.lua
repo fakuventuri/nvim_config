@@ -78,7 +78,14 @@ local plugins = {
     },
     { "mfussenegger/nvim-dap", },
     {
+        "jay-babu/mason-nvim-dap.nvim",
+        event = "VeryLazy",
+        dependencies = { "williamboman/mason.nvim", "mfussenegger/nvim-dap", },
+        config = true,
+    },
+    {
         "rcarriga/nvim-dap-ui",
+        event = "VeryLazy",
         config = true,
         dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" }
     },
