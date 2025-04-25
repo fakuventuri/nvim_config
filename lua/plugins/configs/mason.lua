@@ -11,10 +11,10 @@ local opts = {
         "jdtls",
         "lemminx",
         "lua-language-server",
+        "ltex-ls",
         "mypy",
         "pyright",
         "sqlls",
-        "texlab",
         "zls",
     },
 }
