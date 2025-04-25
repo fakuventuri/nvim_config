@@ -32,6 +32,7 @@ local function format_table_one_line(table, indent, line)
 end
 
 local function print_table(table, opts)
+    opts = opts or {}
     if (opts.format == format.ONE_LINE) then
         local line = format_table_one_line(table, "", "")
         print(line)

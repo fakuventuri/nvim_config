@@ -3,7 +3,6 @@ local opts = {
         "black",
         "bashls",
         "clangd",
-        "clang-format",
         "codelldb",
         "glsl_analyzer",
         "html-lsp",
