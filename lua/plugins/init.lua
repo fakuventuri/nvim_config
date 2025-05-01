@@ -23,6 +23,7 @@ local plugins = {
         'numToStr/Comment.nvim',
         config = true,
     },
+    { "danymat/neogen" },
     {
         "folke/trouble.nvim",
         cmd = "Trouble",
