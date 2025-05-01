@@ -3,7 +3,7 @@ local user_cmd = vim.api.nvim_create_user_command
 
 remap("n", "<leader>gs", "<cmd>tab Git<cr>", { desc = "Git status" })
 
-remap("n", "<leader>gv", "tab Gdiffsplit", { desc = "Git diffsplit (with HEAD)" })
+remap("n", "<leader>gv", "<cmd>tab Gdiffsplit<cr>", { desc = "Git diffsplit (with HEAD)" })
 
 user_cmd("Glog", function(params)
     vim.cmd("tab Git log " .. (params.args or ""))

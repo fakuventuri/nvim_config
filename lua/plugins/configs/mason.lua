@@ -1,7 +1,7 @@
 local opts = {
     ensure_installed = {
         "black",
-        "bashls",
+        "bash-language-server",
         "clangd",
         "codelldb",
         "glsl_analyzer",
