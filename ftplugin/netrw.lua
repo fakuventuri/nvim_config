@@ -9,7 +9,7 @@ bind("O", "t", "open in file new tab")
 bind("h", "-", "go to parent directory")
 bind("l", "<cr>", "go to directory or open file")
 
-bind("n", "%", "new file")
+bind("N", "%", "new file")
 bind("r", "R", "rename")
 
 bind("f", "mf", "mark file and bookmard directory")
