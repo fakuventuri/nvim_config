@@ -17,3 +17,5 @@ vim.g.vimtex_compiler_latexmk = {
         '-interaction=nonstopmode',
     },
 }
+
+return { 'lervag/vimtex', }

@@ -1,15 +1,13 @@
 local remap = vim.keymap.set
 local quickfix = require("utils.quickfix")
--- BASE
+
 remap("n", "<leader>e", vim.cmd.Ex, { desc = "open netrw" })
 
 remap("n", "<tab>", "gt", { desc = "go to next tab" })
 remap("n", "<s-tab>", "gT", { desc = "go to previos tab" })
 
-remap({ "n", "v" }, "L", "$", { desc = "go to line end" })
-remap("n", "dL", "d$", { desc = "go to line end" })
-remap({ "n", "v" }, "H", "^", { desc = "delete till line start" })
-remap("n", "dH", "d^", { desc = "delete till line start" })
+remap({ "n", "v" }, "L", "$", { desc = "go to line end", remap = true })
+remap({ "n", "v" }, "H", "^", { desc = "delete till line start", remap = true })
 
 remap("n", "D", vim.diagnostic.open_float, { desc = "open float diagnostic" })
 
@@ -45,31 +43,3 @@ remap("i", "<C-j>", "<down>", { desc = "down in insert mode" })
 remap("i", "<C-k>", "<up>", { desc = "up in insert mode" })
 remap("i", "<C-h>", "<left>", { desc = "left in insert mode" })
 remap("i", "<C-l>", "<right>", { desc = "right in insert mode" })
-
--- TROUBLE
-remap("n", "<leader>sd", "<cmd>Trouble diagnostics toggle focus=true<cr>", { desc = "show diagnostics" })
-remap("n", "<leader>se",
-    "<cmd>Trouble diagnostics toggle focus=true filter.severity=vim.diagnostic.severity.ERROR<cr>",
-    { desc = "show diagnostics" })
-remap("n", "<leader>sbd", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-    { desc = "show buffer diagnostics" })
-remap("n", "<leader>sbe",
-    "<cmd>Trouble diagnostics toggle focus=true filter.severity=vim.diagnostic.severity.ERROR filter.buf=0<cr>",
-    { desc = "show diagnostics" })
-remap("n", "<leader>ss", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "show symbols" })
-
--- TELESCOPE
-local builtin = require("telescope.builtin")
-
-remap("n", "<leader>ff", builtin.find_files, { desc = "find files" })
-remap("n", "<leader>fp", function()
-    builtin.grep_string({ search = vim.fn.input("Grep > ") })
-end, { desc = "project grep" })
-remap("n", "<leader>fg", builtin.git_files, { desc = "find git files" })
-remap("n", "<leader>fr", builtin.lsp_references, { desc = "find git files" })
-remap("n", "<leader>fs", builtin.lsp_workspace_symbols, { desc = "find workspace symbols" })
-remap("n", "<leader>fbs", builtin.lsp_document_symbols, { desc = "find document symbols" })
-remap("n", "<leader>fd", builtin.diagnostics, { desc = "telescope diagnostics" })
-remap("n", "<leader>fbd", function() builtin.diagnostics({ bufnr = 0 }) end,
-    { desc = "telescope buffer diagnostics" })
-remap("n", "<leader>fk", builtin.keymaps, { desc = "key mappings" })

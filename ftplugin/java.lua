@@ -50,6 +50,7 @@ local config = {
         vim.fn.glob(install_path .. "/plugins/org.eclipse.equinox.launcher_*.jar"),
         "-configuration",
         install_path .. "/config_" .. os_name,
+        "-Dosgi.sharedConfiguration.area.readOnly=true",
         "-data", workspace_dir, },
     capabilities = lsp_config.capabilities,
     root_dir = root_dir,

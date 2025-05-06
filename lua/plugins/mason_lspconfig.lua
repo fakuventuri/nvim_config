@@ -1,5 +1,4 @@
-local lspconfig = require("lspconfig")
-local base_config = require("plugins.configs.lspconfig")
+local base_config = require("plugins.lspconfig.config")
 
 local server_opts = {
     glsl_analyzer = {
@@ -51,17 +50,23 @@ local server_opts = {
     }
 }
 
-local opts = {
-    handlers = {
-        function(server_name)
-            local options = server_opts[server_name] or {}
-            vim.tbl_extend("keep", options, base_config)
-            lspconfig[server_name].setup(options)
-        end,
-        -- discard setups done by plugins
-        jdtls = function() end,
-        rust_analyzer = function() end,
-    },
-}
+return {
+    "williamboman/mason-lspconfig.nvim",
+    dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
+    opts = function()
+        local lspconfig = require("lspconfig")
 
-require("mason-lspconfig").setup(opts)
+        return {
+            handlers = {
+                function(server_name)
+                    local options = server_opts[server_name] or {}
+                    vim.tbl_extend("keep", options, base_config)
+                    lspconfig[server_name].setup(options)
+                end,
+                -- discard setups done by plugins
+                jdtls = function() end,
+                rust_analyzer = function() end,
+            }
+        }
+    end
+}

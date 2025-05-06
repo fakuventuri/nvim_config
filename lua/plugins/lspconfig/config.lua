@@ -1,6 +1,7 @@
 -- Reserve a space in the gutter
 -- This will avoid an annoying layout shift in the screen
 vim.opt.signcolumn = 'yes'
+vim.diagnostic.config({virtual_text = true})
 local api = vim.api
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -79,8 +80,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
         on_attach({ vim.lsp.get_client_by_id(event.data.client_id) }, event.buffer)
     end,
 })
-
-vim.diagnostic.config({virtual_text = true})
 
 return {
     on_attach = on_attach,

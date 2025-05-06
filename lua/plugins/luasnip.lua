@@ -1,20 +1,7 @@
-local opts = {
-    history = true,
-    updateevents = "TextChanged,TextChangedI",
-    -- Enable autotriggered snippets
-    enable_autosnippets = true,
-    -- Use Tab (or some other key if you prefer) to trigger visual selection
-    store_selection_keys = "<Tab>",
-    -- show insert node changes live
-    update_events = 'TextChanged,TextChangedI'
-}
-
 vim.keymap.set("n", "<leader>L", function()
     require("luasnip.loaders.from_lua")
         .load({ paths = "~/.config/nvim/luasnip/" })
 end, { desc = "reload snippets" })
-
-local ls = require("luasnip")
 
 vim.cmd [[
 " Use Tab to expand and jump through snippets
@@ -26,6 +13,21 @@ imap <silent><expr> <S-Tab> luasnip#jumpable(-1) ? '<Plug>luasnip-jump-prev' : '
 smap <silent><expr> <S-Tab> luasnip#jumpable(-1) ? '<Plug>luasnip-jump-prev' : '<S-Tab>'
 ]]
 
-ls.setup(opts)
-
-require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/luasnip/" })
+return {
+    "L3MON4D3/LuaSnip",
+    dependencies = { "rafamadriz/friendly-snippets" },
+    opts = {
+        history = true,
+        updateevents = "TextChanged,TextChangedI",
+        -- Enable autotriggered snippets
+        enable_autosnippets = true,
+        -- Use Tab (or some other key if you prefer) to trigger visual selection
+        store_selection_keys = "<Tab>",
+        -- show insert node changes live
+        update_events = 'TextChanged,TextChangedI',
+    },
+    config = function(opts)
+        require("luasnip").setup(opts)
+        require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/luasnip/" })
+    end
+}
