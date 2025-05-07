@@ -40,13 +40,11 @@ local plugins = {
     {
         "rcarriga/nvim-dap-ui",
         event = "VeryLazy",
-        config = true,
         dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" }
     },
     {
         "julianolf/nvim-dap-lldb",
-        dependencies = { "mfussenegger/nvim-dap" },
-        config = true,
+        dependencies = { "mfussenegger/nvim-dap", },
     },
 }
 

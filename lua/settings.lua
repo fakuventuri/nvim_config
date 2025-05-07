@@ -32,3 +32,5 @@ vim.g.markdown_fenced_languages = { 'cpp' }
 
 vim.opt.backup = false
 vim.opt.writebackup = false
+
+vim.opt.ignorecase = true

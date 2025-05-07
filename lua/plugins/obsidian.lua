@@ -33,6 +33,6 @@ return {
                 end,
                 opts = { noremap = false, expr = true, buffer = true },
             },
-        }
+        },
     },
 }

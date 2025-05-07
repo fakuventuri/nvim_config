@@ -1,4 +1,4 @@
-local lsp_config = require("plugins.configs.lspconfig")
+local lsp_config = require("plugins.lspconfig").export
 local jdtls = require("jdtls")
 
 local function directory_exists(path)
@@ -16,7 +16,7 @@ if not directory_exists(workspace_dir) then
     os.execute("mkdir " .. workspace_dir)
 end
 -- get the mason install path
-local install_path = require("mason-registry").get_package("jdtls"):get_install_path()
+local install_path = "/home/ivan/.local/share/nvim/mason/packages/jdtls/"
 -- get the current OS
 local os_name = vim.loop.os_uname().sysname:lower()
 
