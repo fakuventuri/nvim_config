@@ -43,16 +43,10 @@ end
 return {
     "neovim/nvim-lspconfig",
     config = function()
-        vim.api.nvim_create_autocmd('LspAttach', {
-            desc = 'LSP actions',
-            callback = function(event)
-                on_attach({ vim.lsp.get_client_by_id(event.data.client_id) }, event.buffer)
-            end,
-        })
         vim.lsp.config("*", {
             root_markers = { '.git' },
-            on_attach = on_attach,
             capabilities = capabilities,
+            on_attach = on_attach,
         })
     end,
     export = {
