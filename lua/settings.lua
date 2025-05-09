@@ -34,3 +34,7 @@ vim.opt.backup = false
 vim.opt.writebackup = false
 
 vim.opt.ignorecase = true
+-- for working with latex
+vim.g.vimtex_quickfix_open_on_warning = 0;
+vim.g.vimtex_view_method = "zathura"
+vim.g.vimtex_view_general_viewer = 'okular'
