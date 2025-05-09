@@ -24,7 +24,7 @@ return {
             nvim_cmp = true,
         },
         mappings = {
-            ["gf"] = {
+            ["<cr>"] = {
                 action = function()
                     return require("obsidian").util.gf_passthrough()
                 end,
@@ -35,5 +35,8 @@ return {
                 opts = { buffer = true },
             }
         },
+        follow_url_func = function(url)
+            vim.ui.open(url)
+        end,
     },
 }
