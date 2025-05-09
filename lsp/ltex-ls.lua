@@ -1,6 +1,8 @@
+local lspconfig = require("plugins.lspconfig").export
+
 return {
     on_attach = function(client, bufnr)
-        base_config.on_attach(client, bufnr)
+        lspconfig.on_attach(client, bufnr)
         require("ltex_extra").setup({
             path = "./.ltex/",
         })

@@ -1,27 +1,28 @@
+local opts = {
+    ensure_installed = {
+        "black",
+        "bash-language-server",
+        "clangd",
+        "codelldb",
+        "glsl_analyzer",
+        "html-lsp",
+        "java-debug-adapter",
+        "java-test",
+        "jdtls",
+        "lemminx",
+        "lua-language-server",
+        "ltex-ls",
+        "mypy",
+        "pyright",
+        "sqlls",
+        "zls",
+    }
+}
+
 return {
     "williamboman/mason.nvim",
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
     config = function()
-        local opts = {
-            ensure_installed = {
-                "black",
-                "bash-language-server",
-                "clangd",
-                "codelldb",
-                "glsl_analyzer",
-                "html-lsp",
-                "java-debug-adapter",
-                "java-test",
-                "jdtls",
-                "lemminx",
-                "lua-language-server",
-                "ltex-ls",
-                "mypy",
-                "pyright",
-                "sqlls",
-                "zls",
-            }
-        }
         require("mason").setup(opts)
 
         vim.api.nvim_create_user_command("MasonInstallAll", function()
