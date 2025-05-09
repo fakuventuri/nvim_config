@@ -22,8 +22,11 @@ return {
         local ls = require("luasnip")
 
         remap("n", "<leader>L", loadSnippets, { desc = "reload snippets" })
-        remap({ "i", "s" }, "<tab>", function() ls.jump(1) end, { silent = true })
-        remap({ "i", "s" }, "<s-tab>", function() ls.jump(-1) end, { silent = true })
+        remap({"i", "s"}, "<s-tab>", function() ls.jump(-1) end, { desc = "select previous" })
+        vim.cmd [[
+            imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
+            smap <silent><expr> <Tab> luasnip#jumpable(1) ? '<Plug>luasnip-jump-next' : '<Tab>'
+        ]]
 
         ls.setup(opts)
         loadSnippets()
