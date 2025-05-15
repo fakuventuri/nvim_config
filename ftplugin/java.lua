@@ -1,3 +1,27 @@
+local function search_root()
+    local uv = vim.loop
+    local function is_pom_with_modules(path)
+        local f = io.open(path, "r")
+        if not f then return false end
+        local content = f:read("*all")
+        f:close()
+        return content:find("<modules>")
+    end
+
+    local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
+    local dir = require("lspconfig.util").root_pattern(root_markers)(vim.fn.expand("%:p"))
+    local last_dir = ""
+    while dir and dir ~= last_dir do
+        local pom = dir .. "/pom.xml"
+        if vim.fn.filereadable(pom) == 1 and is_pom_with_modules(pom) then
+            return dir
+        end
+        last_dir = dir
+        dir = uv.fs_realpath(dir .. "/..")
+    end
+    return dir
+end
+
 local lsp_config = require("plugins.lspconfig").export
 local jdtls = require("jdtls")
 
@@ -6,8 +30,7 @@ local function directory_exists(path)
     return f and not f:read("*all"):find("ItemNotFoundException")
 end
 
-local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
-local root_dir = require("jdtls.setup").find_root(root_markers)
+local root_dir = search_root()
 
 -- calculate workspace dir
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
@@ -39,19 +62,15 @@ local config = {
         "-Declipse.product=org.eclipse.jdt.ls.core.product",
         "-Dlog.protocol=true",
         "-Dlog.level=ALL",
-        "-javaagent:" .. install_path .. "/lombok.jar",
+        "-javaagent:" .. install_path .. "lombok.jar",
         "-Xms1g",
-        "--add-modules=ALL-SYSTEM",
-        "--add-opens",
-        "java.base/java.util=ALL-UNNAMED",
-        "--add-opens",
-        "java.base/java.lang=ALL-UNNAMED",
-        "-jar",
-        vim.fn.glob(install_path .. "/plugins/org.eclipse.equinox.launcher_*.jar"),
-        "-configuration",
-        install_path .. "/config_" .. os_name,
-        "-Dosgi.sharedConfiguration.area.readOnly=true",
-        "-data", workspace_dir, },
+        "--module-path", root_dir,
+        "--add-opens", "java.base/java.util=ALL-UNNAMED",
+        "--add-opens", "java.base/java.lang=ALL-UNNAMED",
+        "-jar", vim.fn.glob(install_path .. "plugins/org.eclipse.equinox.launcher_*.jar"),
+        "-configuration", install_path .. "config_" .. os_name,
+        "-Dosgi.sharedConfiguration.area.readOnly=true", "-data", workspace_dir,
+    },
     capabilities = lsp_config.capabilities,
     root_dir = root_dir,
     settings = {
@@ -98,7 +117,7 @@ local config = {
         local _, _ = pcall(vim.lsp.codelens.refresh)
         require("jdtls.dap").setup_dap_main_class_configs()
         jdtls.setup_dap({ hotcodereplace = "auto" })
-    end
+    end,
 }
 
 jdtls.start_or_attach(config)
