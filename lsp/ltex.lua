@@ -4,7 +4,7 @@ return {
     filetypes = {
         "bib",
         "gitcommit",
-        "markdown",
+        -- "markdown",
         "org",
         "plaintex",
         "rst",
@@ -16,8 +16,8 @@ return {
         "context",
         -- "html",
         -- "xhtml",
-        "mail",
-        "text",
+        -- "mail",
+        -- "text",
     },
     settings = {
         ltex = {

@@ -8,6 +8,9 @@ remap("n", "<s-tab>", "gT", { desc = "go to previos tab" })
 
 remap({ "n", "v" }, "L", "$", { desc = "go to line end", remap = true })
 remap({ "n", "v" }, "H", "^", { desc = "delete till line start", remap = true })
+-- not sure why these are not remapped with the two remaps above
+remap("n", "dL", "d$", { desc = "delete till line end" })
+remap("n", "dH", "d^", { desc = "delete till line start" })
 
 remap("n", "D", vim.diagnostic.open_float, { desc = "open float diagnostic" })
 

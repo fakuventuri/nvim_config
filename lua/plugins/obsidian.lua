@@ -3,10 +3,7 @@ local vault_path = "~/Drive/Obsidian Vault/"
 return {
     "epwalsh/obsidian.nvim",
     lazy = true,
-    event = {
-        "BufReadPre " .. vim.fn.expand(vault_path) .. "*.md",
-        "BufNewFile " .. vim.fn.expand(vault_path) .. "*.md",
-    },
+    ft = { "markdown" },
     dependencies = {
         "nvim-lua/plenary.nvim",
         "hrsh7th/nvim-cmp",
@@ -25,10 +22,8 @@ return {
         },
         mappings = {
             ["<cr>"] = {
-                action = function()
-                    return require("obsidian").util.gf_passthrough()
-                end,
-                opts = { noremap = false, expr = true, buffer = true },
+                action = "<cmd>ObsidianFollowLink<cr>",
+                opts = { noremap = false,  buffer = true },
             },
             ["<leader>o"] = {
                 action = "<cmd>ObsidianOpen<cr>",
