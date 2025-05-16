@@ -1,5 +1,9 @@
 local remap = vim.keymap.set
-local quickfix = require("utils.quickfix")
+local utils = {
+    quickfix = require("utils.quickfix"),
+    editor = require("utils.editor"),
+    general = require("utils.general")
+}
 
 remap("n", "<leader>e", vim.cmd.Ex, { desc = "open netrw" })
 
@@ -34,15 +38,22 @@ remap("v", "<leader>r", "\"_d\"+P", { desc = "replace marked with system clipboa
 remap("n", "U", "<C-r>", { desc = "redo" })
 remap("n", "<C-z>", "<nop>", { desc = "nothing" })
 
-remap("n", "<leader>q", function() quickfix.toggle() end, { desc = "toggle quickfix list" })
+remap("n", "<leader>q", function() utils.quickfix.toggle() end, { desc = "toggle quickfix list" })
 remap("n", "<leader>lo", function()
     vim.cmd('e' .. vim.lsp.get_log_path())
 end, { desc = "show error log" })
 
 remap("n", "<C-n>", "<cmd>tab split<cr>", { desc = "new tab" })
 remap("n", "Q", "<cmd>tabclose<cr>", { desc = "close tab" })
--- insert mode
+
+remap("n", "<leader>tc", function()
+    utils.editor.replace_word_under_cursor(utils.general.toggle_case)
+end, { desc = "toggle case of word under cursor" })
+
 remap("i", "<C-j>", "<down>", { desc = "down in insert mode" })
 remap("i", "<C-k>", "<up>", { desc = "up in insert mode" })
 remap("i", "<C-h>", "<left>", { desc = "left in insert mode" })
 remap("i", "<C-l>", "<right>", { desc = "right in insert mode" })
+
+remap("c", "<C-j>", "<down>", { desc = "down in insert mode" })
+remap("c", "<C-l>", "<right>", { desc = "right in insert mode" })
