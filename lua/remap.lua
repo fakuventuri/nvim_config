@@ -7,6 +7,9 @@ local utils = {
 
 remap("n", "<leader>e", vim.cmd.Ex, { desc = "open netrw" })
 
+remap("n", "gl", "<tab>", { desc = "jump forwards in jump list" })
+remap("n", "gh", "<C-o>", { desc = "jump backwards in jump list" })
+
 remap("n", "<tab>", "gt", { desc = "go to next tab" })
 remap("n", "<s-tab>", "gT", { desc = "go to previos tab" })
 
@@ -55,5 +58,7 @@ remap("i", "<C-k>", "<up>", { desc = "up in insert mode" })
 remap("i", "<C-h>", "<left>", { desc = "left in insert mode" })
 remap("i", "<C-l>", "<right>", { desc = "right in insert mode" })
 
-remap("c", "<C-j>", "<down>", { desc = "down in insert mode" })
-remap("c", "<C-l>", "<right>", { desc = "right in insert mode" })
+remap("c", "<C-h>", "<left>", { desc = "go left one character" })
+remap("c", "<C-l>", "<right>", { desc = "go right one character" })
+remap("c", "<C-j>", "<C-left>", { desc = "go left one word" })
+remap("c", "<C-k>", "<C-right>", { desc = "go right one word" })
