@@ -1,23 +1,22 @@
 local remap = vim.keymap.set
-local utils = {
-    quickfix = require("utils.quickfix"),
-    editor = require("utils.editor"),
-    general = require("utils.general")
-}
+local utils = require("utils")
 
 remap("n", "<leader>e", vim.cmd.Ex, { desc = "open netrw" })
 
-remap("n", "gl", "<tab>", { desc = "jump forwards in jump list" })
-remap("n", "gh", "<C-o>", { desc = "jump backwards in jump list" })
+remap("n", "<C-p>", "<tab>", { desc = "jump forwards in jump list" })
+
+remap("n", "gn", function()
+    vim.diagnostic.jump({ count = 1 })
+end, { desc = "go to next diagnostic" })
+remap("n", "gN", function()
+    vim.diagnostic.jump({ count = -1 })
+end, { desc = "go to previous diagnostic" })
 
 remap("n", "<tab>", "gt", { desc = "go to next tab" })
 remap("n", "<s-tab>", "gT", { desc = "go to previos tab" })
 
-remap({ "n", "v" }, "L", "$", { desc = "go to line end", remap = true })
-remap({ "n", "v" }, "H", "^", { desc = "delete till line start", remap = true })
--- not sure why these are not remapped with the two remaps above
-remap("n", "dL", "d$", { desc = "delete till line end" })
-remap("n", "dH", "d^", { desc = "delete till line start" })
+remap({ "n", "v", "o" }, "L", "$", { desc = "go to line end", remap = true })
+remap({ "n", "v", "o" }, "H", "^", { desc = "delete till line start", remap = true })
 
 remap("n", "D", vim.diagnostic.open_float, { desc = "open float diagnostic" })
 
@@ -34,17 +33,21 @@ remap("n", "N", "Nzzzv", { desc = "Centered cursor N" })
 
 remap({ "n", "v" }, "<leader>y", "\"+y", { desc = "yank to clipboard" })
 remap({ "n", "v" }, "<leader>p", "\"+p", { desc = "paste from system clipboard" })
-remap({ "n", "v" }, "<leader>P", "\"+p", { desc = "paste from system clipboard" })
+remap({ "n", "v" }, "<leader>P", "\"+P", { desc = "paste from system clipboard before cursor" })
 remap("v", "r", "\"_dP", { desc = "replace marked with clipboard" })
 remap("v", "<leader>r", "\"_d\"+P", { desc = "replace marked with system clipboard" })
 
 remap("n", "U", "<C-r>", { desc = "redo" })
 remap("n", "<C-z>", "<nop>", { desc = "nothing" })
 
-remap("n", "<leader>q", function() utils.quickfix.toggle() end, { desc = "toggle quickfix list" })
+remap("n", "<leader>q", function()
+    utils.quickfix.toggle()
+end, { desc = "toggle quickfix list" })
 remap("n", "<leader>lo", function()
     vim.cmd('e' .. vim.lsp.get_log_path())
 end, { desc = "show error log" })
+
+remap("n", "<leader>sp", "<cmd>vsplit<cr>", { desc = "split window (vertical)" })
 
 remap("n", "<C-n>", "<cmd>tab split<cr>", { desc = "new tab" })
 remap("n", "Q", "<cmd>tabclose<cr>", { desc = "close tab" })
