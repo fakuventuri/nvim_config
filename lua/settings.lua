@@ -33,6 +33,8 @@ vim.g.markdown_fenced_languages = { 'cpp' }
 vim.opt.backup = false
 vim.opt.writebackup = false
 
+vim.g.netrw_list_hide="^\\./$,^\\.\\./$"
+
 vim.opt.ignorecase = true
 -- for working with latex
 vim.g.vimtex_quickfix_open_on_warning = 0;
