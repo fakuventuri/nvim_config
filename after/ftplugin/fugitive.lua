@@ -3,3 +3,4 @@ local bind = function(lhs, rhs)
 end
 
 bind("dd", "O<cmd>Gdiffsplit<cr>")
+bind("g?", "<cmd>tab help fugitive<cr>")

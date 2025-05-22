@@ -20,8 +20,12 @@ remap({ "n", "v", "o" }, "H", "^", { desc = "delete till line start", remap = tr
 
 remap("n", "D", vim.diagnostic.open_float, { desc = "open float diagnostic" })
 
-remap("n", "<leader>rp", ":%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>", { desc = "replace all ocurrencies" })
-remap("v", "<leader>sr", "y/<C-r>\"<cr>", { desc = "search ocurrencies of marked text " })
+remap("n", "<leader>rp", ":%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>", {
+    desc = "replace all ocurrencies"
+})
+remap("v", "<leader>sr", "y/<C-r>\"<cr>", {
+    desc = "search ocurrencies of marked text "
+})
 
 remap("v", "K", ":m '>+1<CR>gv=gv", { desc = "move marked text up" })
 remap("v", "J", ":m '<-2<CR>gv=gv", { desc = "move marked text down" })
@@ -63,5 +67,10 @@ remap("i", "<C-l>", "<right>", { desc = "right in insert mode" })
 
 remap("c", "<C-h>", "<left>", { desc = "go left one character" })
 remap("c", "<C-l>", "<right>", { desc = "go right one character" })
-remap("c", "<C-j>", "<C-left>", { desc = "go left one word" })
-remap("c", "<C-k>", "<C-right>", { desc = "go right one word" })
+remap("c", "<C-u>", "<s-left>", { desc = "go left one word" })
+remap("c", "<C-o>", "<c-right>", { desc = "go right one word" })
+
+remap("c", "<C-j>", "<down>", { desc = "navigate down in cmdline history" })
+remap("c", "<C-k>", "<up>", { desc = "navigate down in cmdline history" })
+
+remap("c", "<C-c>", "\\(\\)<left><left>", { desc = "open capture group" })
