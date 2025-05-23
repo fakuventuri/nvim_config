@@ -37,68 +37,48 @@ local function move(files)
     to_move = true
 end
 
----@param file string
----@param dst string
-local function paste_file(file, dst)
-    local name = vim.fn.fnamemodify(file, ":t:r")
-    local ext = vim.fn.fnamemodify(file, ":e")
-
-    local name_ext = name .. (ext and "." .. ext or "")
-    local repeated = vim.uv.fs_stat(dst .. name_ext) ~= nil
-    if repeated then
-        if to_move then
-            vim.notify("cannot move: " .. file .. ", already in dst folder", vim.log.levels.ERROR)
-            return
-        end
-        name_ext = name .. " copy" .. (ext and "." .. ext or "")
-    end
-    local copies = 1
-    while vim.uv.fs_stat(dst .. name_ext) ~= nil do
-        copies = copies + 1
-        name_ext = name .. " copy " .. tostring(copies) .. (ext and "." .. ext or "")
-    end
-
-    if to_move then
-        vim.uv.fs_rename(file, dst .. name_ext)
-        to_move = false
-    else
-        vim.uv.fs_copyfile(file, dst .. name_ext)
-    end
-    refresh()
-end
-
 ---@param dir string
----@param dst string
-local function paste_dir(dir, dst)
-    local name = vim.fn.fnamemodify(dir, ":h:t")
-    local final_name = name
+---@param path string
+---@return string
+local function generate_unique_name(dir, path)
+    local stat = vim.uv.fs_stat(path) or error("no such file or directory: " .. path, vim.log.levels.ERROR)
+    local is_dir = stat.type == "directory"
 
-    print("fname: " .. final_name)
-    local repeated = vim.uv.fs_stat(dst .. final_name) ~= nil
-    if repeated then
-        if to_move then
-            vim.notify("cannot move: " .. dir .. ", already in dst folder", vim.log.levels.ERROR)
-            return
+    if is_dir then
+        local name = vim.fn.fnamemodify(path, ":h:t")
+        local final_name = name
+
+        print("name" .. name)
+        print("final" .. dir .. final_name)
+
+        local repeated = vim.uv.fs_stat(dir .. final_name) ~= nil
+        if repeated then
+            final_name = name .. " copy/"
         end
-        final_name = name .. " copy/"
-    end
-    local copies = 1
-    while vim.uv.fs_stat(dst .. final_name) ~= nil do
-        copies = copies + 1
-        final_name = name .. " copy " .. tostring(copies) .. "/"
-    end
+        local copies = 1
+        while vim.uv.fs_stat(dir .. final_name) ~= nil do
+            copies = copies + 1
+            final_name = name .. " copy " .. tostring(copies) .. "/"
+        end
 
-    print("name: " .. final_name)
-    final_name = dst .. final_name
-    vim.uv.fs_mkdir(final_name, 493) -- rwxr-xr-x
-    if to_move then
-        vim.cmd("silent !mv " .. dir .. "* " .. final_name:gsub(" ", "\\ "))
-        vim.cmd("silent !rm -r " .. dir)
-        to_move = false
+        return final_name
     else
-        vim.cmd("silent !cp -r " .. dir .. "* -t " .. final_name:gsub(" ", "\\ "))
+        local name = vim.fn.fnamemodify(path, ":t:r")
+        local ext = vim.fn.fnamemodify(path, ":e")
+
+        local final_name = name .. (ext and "." .. ext or "")
+        local repeated = vim.uv.fs_stat(dir .. final_name) ~= nil
+        if repeated then
+            final_name = name .. " copy" .. (ext and "." .. ext or "")
+        end
+        local copies = 1
+        while vim.uv.fs_stat(dir .. final_name) ~= nil do
+            copies = copies + 1
+            final_name = name .. " copy " .. tostring(copies) .. (ext and "." .. ext or "")
+        end
+
+        return final_name
     end
-    refresh()
 end
 
 ---@param opts? Opts
@@ -106,6 +86,25 @@ end
 local function paste(dst, opts)
     opts = opts or { clipboard = Clipboard.LOCAL }
     local clip = clipboard
+
+    if opts.clipboard == Clipboard.LOCAL and to_move then
+        for path in str.lines(clip) do
+            local name
+            if vim.uv.fs_stat(path).type == "directory" then
+                name = vim.fn.fnamemodify(path, ":h:t")
+            else
+                name = vim.fn.fnamemodify(path, ":t")
+            end
+            if vim.uv.fs_stat(dst .. name) then
+                vim.notify("cannot move: " .. path .. ", already in dst folder", vim.log.levels.ERROR)
+            else
+                vim.uv.fs_rename(path, dst .. name)
+            end
+        end
+        to_move = false
+        goto after_paste
+    end
+
     if opts.clipboard == Clipboard.SYSTEM then
         clip = ""
         for path in str.lines(vim.fn.getreg("+")) do
@@ -121,13 +120,19 @@ local function paste(dst, opts)
             end
         end
     end
+
     for path in str.lines(clip) do
+        local final_name = generate_unique_name(dst, path)
         if vim.uv.fs_stat(path).type == "directory" then
-            paste_dir(path, dst)
+            vim.uv.fs_mkdir(dst .. final_name, 493) -- rwxr-xr-x
+            vim.cmd("silent !cp -r " .. path .. "* -t " .. dst .. final_name:gsub(" ", "\\ "))
         else
-            paste_file(path, dst)
+            vim.uv.fs_copyfile(path, dst .. final_name)
         end
     end
+
+    ::after_paste::
+    refresh()
 end
 
 ---@class delete.Opts

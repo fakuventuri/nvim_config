@@ -20,4 +20,19 @@ return {
             };
         ]], { i(1), i(2), i(3), i(0) })
     ),
+    s({ trig = "sinit", desc = "struct with init and deinit functions" },
+        fmta([[
+            const <> = struct {
+                const Self = @This();
+
+                pub fn init() Self {
+
+                }
+
+                pub fn deinit(self: *Self) void {
+
+                }
+            };
+        ]], { i(1) })
+    ),
 }

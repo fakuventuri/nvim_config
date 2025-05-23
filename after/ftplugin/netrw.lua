@@ -6,6 +6,7 @@ local bind = function(lhs, rhs, desc)
     remap("n", lhs, rhs, { remap = true, buffer = true, desc = desc })
 end
 
+bind("a", "<nop>", "no showing only hidden files")
 bind("s", "<nop>", "no sort changin")
 bind("v", "<nop>", "no vertical split open")
 
@@ -34,7 +35,7 @@ end, "paste selected files")
 bind("O", "t", "open in file new tab")
 bind("o", function()
     local file = vim.fn.getline(".")
-    fs.open_with((vim.fn.expand("%") or ".") .. "/" .. file)
+    fs.open_with(fs.cwd() .. file)
 end, "open file under cursor")
 
 bind("r", "R", "rename")
@@ -42,3 +43,5 @@ bind("n", "%", "create new file")
 
 bind("h", "-", "go to parent directory")
 bind("l", "<cr>", "go to directory or open file")
+
+bind("<f1>", "<cmd>tab help netrw<cr>", "go to directory or open file")
