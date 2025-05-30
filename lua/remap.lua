@@ -58,6 +58,8 @@ remap("n", "<leader>tc", function()
     utils.editor.replace_word_under_cursor(utils.general.toggle_case)
 end, { desc = "toggle case of word under cursor" })
 
+remap("n", "<C-s>", "<cmd>w<cr>", { desc = "save" })
+
 remap("i", "<C-j>", "<down>", { desc = "down in insert mode" })
 remap("i", "<C-k>", "<up>", { desc = "up in insert mode" })
 remap("i", "<C-h>", "<left>", { desc = "left in insert mode" })
