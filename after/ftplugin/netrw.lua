@@ -8,7 +8,7 @@ end
 
 bind("a", "<nop>", "no showing only hidden files")
 bind("s", "<nop>", "no sort changin")
-bind("v", "<nop>", "no vertical split open")
+bind("v", "V", "quality of life")
 
 ---@return string
 local function get_selected_files()

@@ -3,7 +3,8 @@ local utils = require("utils")
 
 remap("n", "<leader>e", vim.cmd.Ex, { desc = "open netrw" })
 
-remap("n", "<C-p>", "<tab>", { desc = "jump forwards in jump list" })
+remap("n", "L", "<tab>", { desc = "jump forwards in jump list" })
+remap("n", "H", "<C-o>", { desc = "jump backwards in jump list" })
 
 remap("n", "gn", function()
     vim.diagnostic.jump({ count = 1 })
@@ -14,9 +15,6 @@ end, { desc = "go to previous diagnostic" })
 
 remap("n", "<tab>", "gt", { desc = "go to next tab" })
 remap("n", "<s-tab>", "gT", { desc = "go to previos tab" })
-
-remap({ "n", "v", "o" }, "L", "$", { desc = "go to line end", remap = true })
-remap({ "n", "v", "o" }, "H", "^", { desc = "delete till line start", remap = true })
 
 remap("n", "D", vim.diagnostic.open_float, { desc = "open float diagnostic" })
 

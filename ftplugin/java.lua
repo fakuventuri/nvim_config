@@ -1,5 +1,4 @@
 local function search_root()
-    local uv = vim.loop
     local function is_pom_with_modules(path)
         local f = io.open(path, "r")
         if not f then return false end
@@ -11,13 +10,17 @@ local function search_root()
     local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
     local dir = require("lspconfig.util").root_pattern(root_markers)(vim.fn.expand("%:p"))
     local last_dir = ""
-    while dir and dir ~= last_dir do
+    while dir ~= last_dir do
         local pom = dir .. "/pom.xml"
         if vim.fn.filereadable(pom) == 1 and is_pom_with_modules(pom) then
             return dir
         end
+        local parent = vim.uv.fs_realpath(dir .. "/..") or error("Project root not found")
+        local parent_pom = parent .. "/pom.xml"
         last_dir = dir
-        dir = uv.fs_realpath(dir .. "/..")
+        if vim.fn.filereadable(parent_pom) == 1 then
+            dir = parent
+        end
     end
     return dir
 end
