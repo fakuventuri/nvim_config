@@ -15,6 +15,7 @@ local opts = {
         "mypy",
         "pyright",
         "sqlls",
+        "stylua",
         "zls",
     }
 }

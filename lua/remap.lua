@@ -49,7 +49,7 @@ remap("n", "<leader>lo", function()
     vim.cmd('e' .. vim.lsp.get_log_path())
 end, { desc = "show error log" })
 
-remap("n", "<leader>sp", "<cmd>vsplit<cr>", { desc = "split window (vertical)" })
+remap("n", "<leader>vs", "<cmd>vsplit<cr>", { desc = "split window (vertical)" })
 
 remap("n", "<C-n>", "<cmd>tab split<cr>", { desc = "new tab" })
 remap("n", "Q", "<cmd>tabclose<cr>", { desc = "close tab" })
@@ -65,12 +65,9 @@ remap("i", "<C-k>", "<up>", { desc = "up in insert mode" })
 remap("i", "<C-h>", "<left>", { desc = "left in insert mode" })
 remap("i", "<C-l>", "<right>", { desc = "right in insert mode" })
 
-remap("c", "<C-h>", "<left>", { desc = "go left one character" })
-remap("c", "<C-l>", "<right>", { desc = "go right one character" })
-remap("c", "<C-u>", "<s-left>", { desc = "go left one word" })
-remap("c", "<C-o>", "<c-right>", { desc = "go right one word" })
-
-remap("c", "<C-j>", "<down>", { desc = "navigate down in cmdline history" })
-remap("c", "<C-k>", "<up>", { desc = "navigate down in cmdline history" })
+remap("c", "<C-j>", "<left>", { desc = "go left one character" })
+remap("c", "<C-k>", "<right>", { desc = "go right one character" })
+remap("c", "<C-h>", "<s-left>", { desc = "go left one word" })
+remap("c", "<C-l>", "<c-right>", { desc = "go right one word" })
 
 remap("c", "<C-c>", "\\(\\)<left><left>", { desc = "open capture group" })
