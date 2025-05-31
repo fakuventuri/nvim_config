@@ -1,4 +1,4 @@
-local vault_path = "~/Drive/Obsidian Vault/"
+local vault_path = "~/obsidian_vault/"
 
 return {
     "epwalsh/obsidian.nvim",
@@ -23,7 +23,7 @@ return {
         mappings = {
             ["<cr>"] = {
                 action = "<cmd>ObsidianFollowLink<cr>",
-                opts = { noremap = false,  buffer = true },
+                opts = { noremap = false, buffer = true },
             },
             ["<leader>o"] = {
                 action = "<cmd>ObsidianOpen<cr>",
