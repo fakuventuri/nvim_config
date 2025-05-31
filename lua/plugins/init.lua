@@ -1,6 +1,5 @@
 local plugins = {
 	{ "lewis6991/gitsigns.nvim" },
-	{ "mfussenegger/nvim-jdtls" },
 	{
 		"numToStr/Comment.nvim",
 		config = true,
@@ -10,7 +9,6 @@ local plugins = {
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = true,
 	},
-	{ "barreiroleo/ltex_extra.nvim" },
 	{
 		"tiagovla/tokyodark.nvim",
 		config = function(_, _)
@@ -35,22 +33,6 @@ local plugins = {
 			vim.g.rustfmt_autosave = 1
 		end,
 	},
-	{
-		"jay-babu/mason-nvim-dap.nvim",
-		event = "VeryLazy",
-		dependencies = { "williamboman/mason.nvim", "mfussenegger/nvim-dap" },
-		config = true,
-	},
-	{
-		"rcarriga/nvim-dap-ui",
-		event = "VeryLazy",
-		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
-	},
-	{
-		"julianolf/nvim-dap-lldb",
-		dependencies = { "mfussenegger/nvim-dap" },
-	},
-	{ "EdenEast/nightfox.nvim" },
 }
 
 return plugins
