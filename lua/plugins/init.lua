@@ -10,7 +10,6 @@ local plugins = {
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = true,
 	},
-	{ "barreiroleo/ltex_extra.nvim" },
 	{
 		"tiagovla/tokyodark.nvim",
 		config = function(_, _)
