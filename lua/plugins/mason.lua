@@ -1,38 +1,5 @@
 local opts = {
 	ensure_installed = {
-<<<<<<< HEAD
-		"black",
-		"bash-language-server",
-		"clangd",
-		"codelldb",
-		"glsl_analyzer",
-		"html-lsp",
-		"java-debug-adapter",
-		"java-test",
-		"jdtls",
-		"lemminx",
-		"lua-language-server",
-||||||| b8e7bec
-    ensure_installed = {
-        "black",
-        "bash-language-server",
-        "clangd",
-        "codelldb",
-        "glsl_analyzer",
-        "html-lsp",
-        "java-debug-adapter",
-        "java-test",
-        "jdtls",
-        "lemminx",
-        "lua-language-server",
-        "ltex-ls",
-        "mypy",
-        "pyright",
-        "sqlls",
-        "stylua",
-        "zls",
-    }
-=======
 		"beautysh",
 		"black",
 		"bash-language-server",
@@ -45,8 +12,6 @@ local opts = {
 		"jdtls",
 		"lemminx",
 		"lua-language-server",
-		"ltex-ls",
->>>>>>> upstream/main
 		"mypy",
 		"pyright",
 		"sqlls",
